@@ -24,16 +24,15 @@ async function load() {
     maxBytesToRead
   );
 
-  const userQuery = prompt("Enter Certificate ID"); // Prompt the user for the query
+  const userQuery = prompt("Enter Certificate ID");
 
   if (userQuery) {
-    const result = await worker.db.exec(`select * from interncert where certID=${userQuery}`); // may edit to "const result = await (worker.db as any).exec(`select * from interncert where certID=${userQuery}`);"
-
-    console.log(await worker.worker.bytesRead); // Log the number of bytes read by the worker
-
+    const result = await worker.db.exec(`select * from interncert where certId=${userQuery}`); // may edit to "const result = await (worker.db as any).exec(`select * from interncert where certID=${userQuery}`);"
+    for ( const element of result){
+    console.log(element);
+    }
     document.body.textContent = JSON.stringify(result);
   }
 }
 
 load();
-
