@@ -30,8 +30,21 @@ async function load() {
     const result = await worker.db.exec(`select * from interncert where certId=${userQuery}`); // may edit to "const result = await (worker.db as any).exec(`select * from interncert where certID=${userQuery}`);"
     for ( const element of result){
     console.log(element);
-    }
-    document.body.textContent = JSON.stringify(result);
+  result.forEach((resultSet, index) => {
+    const resultString = resultSet.values
+      .map(row => {
+        return row
+          .map((value, columnIndex) => {
+            const column = resultSet.columns[columnIndex];
+            return `${column}: ${value}`;
+          })
+          .join("\n");
+      })
+      .join("\n\n");
+    window.alert(resultString);
+  });
+}
+   document.body.textContent = JSON.stringify(result);
   }
 }
 
