@@ -29,36 +29,31 @@ async function load() {
   const resultContainer = document.getElementById("resultContainer");
 
   searchButton.addEventListener("click", async () => {
-    const userQuery = searchInput.value;
+  const userQuery = searchInput.value;
 
-    if (userQuery) {
-      const result = await worker.db.exec(
-        `SELECT * FROM interncert WHERE certId = ${userQuery}`
-      );
+  if (userQuery) {
+    const result = await worker.db.exec(
+      `SELECT * FROM interncert WHERE certId = ${userQuery}`
+    );
 
-      resultContainer.textContent = "";
+    resultContainer.textContent = "";
 
     if (result.length === 0) {
       resultContainer.textContent = "No certificate found.";
     } else {
       result.forEach((resultSet, index) => {
-        const resultString = resultSet.values
-          .map((row) => {
-            return row
-              .map((value, columnIndex) => {
-                const column = resultSet.columns[columnIndex];
-                return `${column}: ${value}`;
-              })
-              .join("\n");
-          })
-          .join("\n\n");
-
-        resultContainer.textContent += resultString;
-        resultContainer.textContent += "\n\n";
+        resultSet.values.forEach((row) => {
+          row.forEach((value, columnIndex) => {
+            const column = resultSet.columns[columnIndex];
+            resultContainer.textContent += `${column}: ${value}\n`;
+          });
+          resultContainer.textContent += "\n";
+        });
       });
     }
   }
- });
+});
+  
 }
 
 load();

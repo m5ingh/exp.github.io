@@ -1,8 +1,15 @@
 <!DOCTYPE html>
-
+<head>
 <title>Talent Training Verification</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.17/dist/tailwind.min.css" rel="stylesheet">
+</head>
 <script src="./dist/bundle.js"></script>
-<div>Enter Certificate Id:</div>
-<input type="text" id="searchInput" placeholder="Certificate ID">
-<button id="searchButton">Search</button>
-<div id="resultContainer"></div>
+<div class="flex justify-center items-center h-screen">
+  <div class="max-w-md w-full p-4">
+    <div>Enter Certificate Id:</div>
+    <input id="searchInput" class="w-full p-2 mb-4 rounded" type="text" placeholder="Enter certificate ID">
+    <button id="searchButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Search</button>
+    <div id="resultContainer" class="mt-4 p-4 bg-gray-100 rounded"></div>
+  </div>
+</div>
+
