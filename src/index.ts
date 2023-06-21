@@ -42,13 +42,18 @@ async function load() {
       resultContainer.textContent = "No certificate found.";
     } else {
       result.forEach((resultSet, index) => {
-        resultSet.values.forEach((row) => {
-          row.forEach((value, columnIndex) => {
-            const column = resultSet.columns[columnIndex];
-            resultContainer.textContent += `${column}: ${value}\n`;
-          });
-          resultContainer.textContent += "\n";
-        });
+        const resultString = resultSet.values
+          .map((row) => {
+            return row
+              .map((value, columnIndex) => {
+                const column = resultSet.columns[columnIndex];
+                return `${column}: ${value}<br>`;
+              })
+              .join("");
+          })
+          .join("<br>");
+
+        resultContainer.innerHTML += resultString;
       });
     }
   }
